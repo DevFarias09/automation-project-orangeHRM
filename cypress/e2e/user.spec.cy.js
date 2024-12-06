@@ -1,8 +1,8 @@
 import userData from '../fixtures/users/userData.json'
 import LoginPage from '../pages/loginPage.js'
 import DashboardPage from '../pages/dashboardPage.js'
-import MyInfoPage from '../pages/myInfoPage.js'
 import MenuPage from '../pages/menuPage.js'
+import MyInfoPage from '../pages/myInfoPage.js'
 
 const loginPage = new LoginPage()
 const dashboardPage = new DashboardPage()
@@ -14,21 +14,23 @@ describe('Orange HRM Tests', () => {
   // it.skip('Login - Success', () => {   "O código:'.skip' é para pular e também não executar esse bloco de códigos"
   // it.only('Login - Success', () => {   "O código:'.only' é para executar somente esse bloco de códigos"
 
-  it.only('User Info Update - Success', () => {
-    
+  it('User Info Update - Success', () => {
     loginPage.accessLoginPage()
     loginPage.loginWithAnyUser(userData.userSuccess.username, userData.userSuccess.password)
-    dashboardPage.checkDashboardPage()
-    menuPage.accessMyInfo()
-    myInfoPage.register()
-  })
 
+    dashboardPage.checkDashboardPage()
+    
+    menuPage.accessMyInfo()
+    
+    myInfoPage.fillPersonalDetails('First Name', 'Last Name')
+    myInfoPage.fillEmployeeDetails('EmployeeId', 'Other Id', 'DriversNumber', '2025-07-29')
+    myInfoPage.fillStatus('1992-03-18')
+    myInfoPage.saveForm()
+  })
+  
   it('Login - Fail', () => {
-     
-    cy.visit('/auth/login')
-    cy.get(selectorsList.usernameField).type(userData.userFail.username)
-    cy.get(selectorsList.passwordField).type(userData.userFail.password)
-    cy.get(selectorsList.loginButton).click()
-    cy.get(selectorsList.wrongCredentialAlert)
+    loginPage.accessLoginPage()
+    loginPage.loginWithAnyUser(userData.userFail.username, userData.userFail.password)
+    loginPage.checkAccessInvalid()
   })
 })
