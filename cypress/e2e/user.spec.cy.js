@@ -24,6 +24,19 @@ describe('Orange HRM Tests', () => {
 
     dashboardPage.checkDashboardPage()
     
+    menuPage.accessAdmin()
+    menuPage.accessPim()
+    menuPage.accessLeave()
+    menuPage.accessTime()
+    menuPage.accessRecruitment()
+    menuPage.accessPerformance()
+    menuPage.accessDashboard()
+    menuPage.accessDirectory()
+    menuPage.accessMaintenance()
+    cy.get('.oxd-button--ghost').click()
+    menuPage.accessClaim()
+    menuPage.accessBuzz()
+
     menuPage.accessMyInfo()
     
     myInfoPage.fillPersonalDetails(chance.first({ gender: "male" }), chance.last())
